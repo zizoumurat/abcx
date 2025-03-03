@@ -19,7 +19,8 @@ export class AuthService implements IAuthService {
   async login(request: LoginRequest): Promise<LoginResponse> {
     try {
       const response = await firstValueFrom(
-        this.http.post<LoginResponse>(`${this.apiUrl}/login`, request).pipe(
+        this.http.post<{ data: LoginResponse }>(`${this.apiUrl}/login`, request).pipe(
+          map(res => res.data), // API'den gelen sonucu direkt `data` olarak al
           catchError(error => {
             console.error('Login failed:', error);
             return throwError(() => new Error('Login request failed. Please try again.'));

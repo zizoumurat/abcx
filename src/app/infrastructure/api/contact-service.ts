@@ -10,7 +10,7 @@ import { PaginationResponseModel } from '../../core/models/paginationResponseMod
     providedIn: 'root',
 })
 export class ContactService implements IContactService {
-    private apiUrl = `${BASE_URL}/budgets`;
+    private apiUrl = `${BASE_URL}/contact/getAll`;
 
     constructor(private http: HttpClient) { }
 
