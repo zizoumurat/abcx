@@ -10,7 +10,7 @@ import { PaginationResponseModel } from '../../core/models/paginationResponseMod
     providedIn: 'root',
 })
 export class ContactService implements IContactService {
-    private apiUrl = `${BASE_URL}/contact/getAll`;
+    private apiUrl = `${BASE_URL}/contact`;
 
     constructor(private http: HttpClient) { }
 
@@ -28,7 +28,15 @@ export class ContactService implements IContactService {
         });
 
         return firstValueFrom(
-            this.http.get<{ data: PaginationResponseModel<Contact> }>(`${this.apiUrl}`, { params })
+            this.http.get<{ data: PaginationResponseModel<Contact> }>(`${this.apiUrl}/getAll`, { params })
         ).then(response => response.data);
+    }
+
+    create(item: Contact): Promise<void> {
+        return firstValueFrom(this.http.post<void>(`${this.apiUrl}/create`, item))
+    }
+
+    delete(ref: number): Promise<void> {
+        return firstValueFrom(this.http.delete<void>(`${this.apiUrl}/delete/${ref}`));
     }
 }

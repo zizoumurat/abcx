@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { Contact, PaginationFilterModel } from '../../core/models/contact';
 import { PaginationResponseModel } from '../../core/models/paginationResponseModel';
 import { LazyLoadEvent } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -25,14 +26,37 @@ export class HomeComponent {
   contacts: Contact[] = [];
   totalRecords: number = 0;
   loading: boolean = true;
-  selectedContact: Contact | null = null;
-  displayDialog: boolean = false;
+  displayModal: boolean = false;
 
   lastLazyLoadEvent: LazyLoadEvent | undefined;
 
-  constructor(private http: HttpClient) { }
+  contactForm!: FormGroup;
+
+  contactTypes = [
+    { name: "Aday Müşteri", value: 1 },
+    { name: "Tedarikçi", value: 2 },
+    { name: "Nakliyeci", value: 3 },
+    { name: "Fırsat", value: 4 },
+    { name: "Personel", value: 5 },
+    { name: "Diğer", value: 9 }
+  ];
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.contactForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
+      email: ['', [Validators.required, Validators.email]],
+      contactType: [null, Validators.required] ,
+      cityRef: [142],    
+      countryRef: [101]  
+    });
   }
 
   protected async loadData(event?: LazyLoadEvent) {
@@ -61,14 +85,28 @@ export class HomeComponent {
     this.loading = false;
   }
 
-  editContact(contact: Contact) {
-    this.selectedContact = { ...contact };
-    this.displayDialog = true;
+  openModal() {
+    this.displayModal = true;
   }
 
   deleteContact(contactId: number) {
-    if (confirm('Bu kişiyi silmek istediğinize emin misiniz?')) {
+    this.contactService.delete(contactId).then(() => {
+      this.loadData(this.lastLazyLoadEvent);
+    });
+  }
 
+  saveContact() {
+    if (this.contactForm.valid) {
+
+      this.contactService.create(this.contactForm.value);
+      //this.displayModal = false;
+      //this.contactForm.reset();
+    } else {
     }
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.contactForm.get(controlName);
+    return control?.invalid && control?.touched ? true : false;
   }
 }

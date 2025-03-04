@@ -5,6 +5,7 @@ export enum ContactTypeEnum {
 }
 
 export interface Contact {
+  ref: number;
   contactType: ContactTypeEnum;
   code: string;
   firstName: string;

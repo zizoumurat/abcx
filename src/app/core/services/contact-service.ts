@@ -4,6 +4,8 @@ import { PaginationResponseModel } from '../models/paginationResponseModel';
 
 export interface IContactService {
   getAll(filter: PaginationFilterModel): Promise<PaginationResponseModel<Contact>>;
+  create(item: Contact): Promise<void>;
+  delete(ref: number): Promise<void>;
 }
 
 
