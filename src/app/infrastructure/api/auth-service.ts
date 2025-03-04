@@ -20,7 +20,7 @@ export class AuthService implements IAuthService {
     try {
       const response = await firstValueFrom(
         this.http.post<{ data: LoginResponse }>(`${this.apiUrl}/login`, request).pipe(
-          map(res => res.data), // API'den gelen sonucu direkt `data` olarak al
+          map(res => res.data), 
           catchError(error => {
             console.error('Login failed:', error);
             return throwError(() => new Error('Login request failed. Please try again.'));

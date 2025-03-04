@@ -1,0 +1,68 @@
+/* Header kısmını Flexbox ile düzenleme */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h2 {
+    margin: 0;
+  }
+  
+  /* İşlem butonlarını sağa hizalamak */
+  .actions {
+    display: flex;
+    justify-content: flex-end; /* Butonları sağa hizalar */
+    gap: 5px; /* Butonlar arasında mesafe */
+    width: 100%;
+  }
+  
+  /* Butonları biraz daha küçük yapmak ve şık bir görünüm sağlamak */
+  .p-button-rounded {
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Buton iconları için dikdörtgen zemin */
+  .p-button-rounded .pi {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* PrimeNG Tooltip ayarları */
+  .ui-tooltip {
+    font-size: 12px;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  
+  /* PrimeNG Tabloya özel stil */
+  .custom-table .p-table-tbody > tr > td {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Veriyi sola hizalar */
+  }
+  
+  /* İşlem butonları hizalamasını iyileştirmek */
+  .custom-table .actions {
+    display: flex;
+    justify-content: flex-end; /* Butonları sağa hizalar */
+    gap: 10px;
+  }
+  
+  /* Eğer bir sütunun genişliğini içerik kadar tutmak isterseniz */
+  .custom-table .p-table-tbody td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* İçerik taşarsa nokta ekler */
+  }
+  

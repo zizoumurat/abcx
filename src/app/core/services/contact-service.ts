@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-import { Contact } from '../models/contact';
+import { Contact, PaginationFilterModel } from '../models/contact';
 import { PaginationResponseModel } from '../models/paginationResponseModel';
 
 export interface IContactService {
-  getAll(): Promise<PaginationResponseModel<Contact>>;
+  getAll(filter: PaginationFilterModel): Promise<PaginationResponseModel<Contact>>;
 }
 
 

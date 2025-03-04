@@ -1,17 +1,27 @@
+export enum ContactTypeEnum {
+  Personal,
+  Business,
+  Other
+}
+
 export interface Contact {
-  id: number;
-  status: boolean;
-  userId: number;
-  userName: string;
-  departmentId: number;
-  currencyCode: string;
-  departmentName: string;
-  companyId: number;
-  companyName: string;
-  budgetLimit: number;
-  budgetTitle: string;
-  currencyId: number;
-  currencyName: string;
-  startDate: Date;
-  endDate: Date;
+  contactType: ContactTypeEnum;
+  code: string;
+  firstName: string;
+  lastName: string;
+  inchargeRef: string;
+  fullAddress: string;
+  cityRef: string;
+  countryRef: string;
+  phone: string;
+  mobile: string;
+  email: string;
+}
+
+
+export class PaginationFilterModel {
+  page: number = 0;
+  pageSize: number = 10;
+  sortByMultiName: string[] = ['id'];
+  sortByMultiOrder: number[] = [0];
 }
